@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}
+  Tweets List
+{% endblock %}
+{% block content %}
+  <h1 class='text-center mt-4'>Welcome to tweet's Index.html</h1>
+
+  {% comment %} url contains functions in vew.py {% endcomment %}
+  {% comment %} The Django url template tag ({% url 'create_tweet' %}) looks for the name='create_tweet' in the urlpatterns in urls.py.
+  Once it finds the correct pattern (e.g., 'create/'), it generates a URL for that view function (create_tweet in views.py).
+  When you click the link, Django routes the request to the create_tweet view based on the URL pattern. {% endcomment %}
+  
+  <a href="{% url 'create_tweet' %}" class="btn btn-primary mb-4">Create a Tweet</a>
+  <div class='container row gap-3'>
+    {% for tweet in  tweets %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{tweet.photo.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{tweet.user.username}}</h5>
+          <p class="card-text">{{tweet.text}}</p>
+          {% if tweet.user == user %}
+          <a href="{% url 'edit_tweet' tweet.id %}" class="btn btn-primary">Edit</a>
+          <a href="{% url 'delete_tweet' tweet.id %}" class="btn btn-danger">Delete</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

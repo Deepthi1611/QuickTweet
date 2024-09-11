@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}
+  Tweet
+{% endblock %}
+{% block content %}
+  <h1 class='text-center mt-4'>Welcome to tweet's Index.html</h1>
+  <h2>
+    {% if form.instance.pk %}
+    Edit Tweet
+    {% else %} 
+    Create Tweet 
+    {% endif %}
+  </h2>
+    {% comment %} multipart/form-data is one of the encoding types and is used when your form contains files (like images, videos, documents) that need to be uploaded. {% endcomment %}
+    <form method='POST' enctype="multipart/form-data" class='form text-center'>
+      {% csrf_token %}
+      
+      <div class="form-group mb-3">
+        <label for="id_text" class="form-label">Tweet Text</label>
+        {{ form.text }}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="id_photo" class="form-label">Upload Photo</label>
+        {{ form.photo }}
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <a href="{% url 'get_tweets' %}" class="btn btn-outline-info btn-lg mt-4 text-center">Back to Tweet List</a>
+{% endblock %}
+
+{% comment %} 
+Behind the scenes, Django generates HTML like this:
+<div class="form-group mb-3">
+    <label for="id_text" class="form-label">Tweet Text</label>
+    <input type="text" name="text" id="id_text" class="form-control">
+</div>
+
+<div class="form-group mb-3">
+    <label for="id_photo" class="form-label">Upload Photo</label>
+    <input type="file" name="photo" id="id_photo" class="form-control">
+</div>
+
+
+When a user submits a form using the POST method, 
+all the form field values are sent as key-value pairs, 
+where the key is the name attribute of the form field (from HTML), and the value is what the user entered.
+
+{% endcomment %}

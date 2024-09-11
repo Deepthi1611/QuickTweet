@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}
+  Tweet
+{% endblock %}
+{% block content %}
+  <h1 class='text-center mt-4'>Are you sure, you want to dele the tweet?</h1>
+  <form method='POST'>
+    {% csrf_token %}
+    <button class="btn btn-danger">Delete</button>
+    <a href="{% url 'get_tweets' %}" class="btn btn-success">Cancel</a>
+  </form>
+{% endblock %}
+
+{% comment %} The <form> element in your tweet_confirm_delete.html is set to make a POST request to the same URL where the page was initially served:
+When the user clicks the "Delete" button, the form is submitted, and the browser makes a POST request to the URL for that tweet's deletion (/tweet/<tweet_id>/delete).
+{% endcomment %}
